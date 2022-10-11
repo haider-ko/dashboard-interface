@@ -7,11 +7,18 @@ import {
 } from "@ant-design/icons";
 import "antd/dist/antd.min.css"; // or 'antd/dist/antd.less'
 import "../Layout/Layout.css";
+import { Cards, StyledSpace } from "./Main Content/Cards";
 
-import { Card, Layout, Menu } from "antd";
+import { Card, Layout, Menu, Row, Col, Typography } from "antd";
 import React, { useState } from "react";
 import Grids from "./Main Content/Cards";
+import BarChart from "./Charts/Chart";
+import FirstTable from "./Tables/FirstTable";
 const { Header, Sider, Content } = Layout;
+const style = {
+  background: "#0092ff",
+  margin: "10px 0",
+};
 
 const Home = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -73,6 +80,43 @@ const Home = () => {
           }}
         >
           <Grids></Grids>
+
+          <Row gutter={[16, 20]}>
+            <Col gutter={4} span={16}>
+              <Card>
+                <BarChart />
+              </Card>
+            </Col>
+
+            <Col span={8}>
+              <Row vgutter={20} style={{ style }}>
+                <Col style={{ backgroundColor: "green" }}>
+                  <Card>
+                    <Typography>
+                      Enhance your Campaign for better outreach{" "}
+                    </Typography>
+                  </Card>
+                </Col>
+              </Row>
+              <Row vgutter={20} style={{ style }}>
+                <Col gutter={16}>
+                  <Card>
+                    Hello Lorem ipsum dolor sit amet consectetur adipisicing
+                    elit. Quidem, natus.
+                  </Card>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+
+          <Row style={{ margin: "20px 0" }}>
+            <Col span={12}>
+              <FirstTable />
+            </Col>
+            <Col offset={1} span={11}>
+              <FirstTable />
+            </Col>
+          </Row>
         </Content>
       </Layout>
     </Layout>

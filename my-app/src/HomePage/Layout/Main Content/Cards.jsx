@@ -4,11 +4,12 @@ import { useState } from "react";
 import "../Main Content/Cards.css";
 import React from "react";
 import { WalletOutlined } from "@ant-design/icons";
+import BarChart from "../Charts/Chart";
 const style = {
   padding: "8px 0",
 };
 
-const Cards = styled(Card)`
+export const Cards = styled(Card)`
 position: relative;
 display: flex;
 flex-direction: column;
@@ -26,7 +27,7 @@ margin: 0 10px;
 }
 `;
 
-const StyledSpace = styled(Space)`
+export const StyledSpace = styled(Space)`
   display: flex;
 
   padding: 10px;
