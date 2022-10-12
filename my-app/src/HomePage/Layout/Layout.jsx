@@ -20,7 +20,7 @@ const style = {
   margin: "10px 0",
 };
 
-const Home = () => {
+const Home = ({ dataSource }) => {
   const [collapsed, setCollapsed] = useState(false);
   return (
     <Layout>
@@ -111,10 +111,26 @@ const Home = () => {
 
           <Row style={{ margin: "20px 0" }}>
             <Col span={12}>
-              <FirstTable />
+              <FirstTable
+                dataSource={dataSource}
+                titleofTable={"Latest Transaction"}
+              />
             </Col>
             <Col offset={1} span={11}>
-              <FirstTable />
+              <FirstTable
+                dataSource={dataSource}
+                titleofTable={"Latest Orders"}
+              />
+            </Col>
+          </Row>
+
+          <Row style={{ margin: "20px 0" }}>
+            <Col span={24}>
+              <FirstTable
+                dataSource={dataSource}
+                titleofTable={"Recent users"}
+                last_name={"last_name"}
+              />
             </Col>
           </Row>
         </Content>

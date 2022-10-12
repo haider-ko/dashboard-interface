@@ -7,6 +7,9 @@ import {
   Card,
   Spin,
   Space,
+  Avatar,
+  Image,
+  Badge,
 } from "antd";
 import { DeleteTwoTone } from "@ant-design/icons";
 import React, { useContext, useEffect, useRef, useState } from "react";
@@ -103,19 +106,22 @@ const EditableCell = ({
   return <td {...restProps}>{childNode}</td>;
 };
 
-const FirstTable = () => {
-  const [dataSource, setDataSource] = useState([]);
-  const [isFetching, setIsFetching] = useState(false);
+const FirstTable = ({
+  dataSource,
+  setDataSource,
+  titleofTable,
+  last_name,
+  image,
+}) => {
   const [count, setCount] = useState(11);
+  const [show, setShow] = useState(true);
 
-  //Api Fetching
-  useEffect(() => {
-    if (isFetching) {
-      fetch("MOCK_DATA.json")
-        .then((response) => response.json())
-        .then((dataSource) => setDataSource(dataSource));
-    }
-  }, [isFetching]);
+  //   //Api Fetching
+  //   useEffect(() => {
+  //     fetch("MOCK_DATA.json")
+  //       .then((response) => response.json())
+  //       .then((dataSource) => setDataSource(dataSource));
+  //   }, []);
 
   const handleDelete = (id) => {
     const newData = dataSource.filter((item) => item.id !== id);
@@ -155,19 +161,61 @@ const FirstTable = () => {
       editable: true,
     },
     {
+      title: " ",
+      dataIndex: "image",
+
+      render: (_, record, dataIndex) =>
+        dataSource.length >= 1
+          ? dataSource.map((m) => (
+              <> {m.id === record.id && <Avatar src={m.image} width={200} />}</>
+            ))
+          : 0,
+    },
+
+    {
       title: "Name",
       dataIndex: "first_name",
       editable: true,
     },
     {
-      title: "E-mail",
-      dataIndex: "email",
+      title: "Last Name",
+      dataIndex: "last_name",
       editable: true,
+      hidden: last_name ? false : true,
     },
+
     {
       title: "Sales",
       dataIndex: "sales",
       editable: true,
+    },
+    {
+      title: "Status",
+      dataIndex: "boolean",
+      align: "center",
+
+      render: (_, record, dataIndex) =>
+        dataSource.length
+          ? dataSource.map((m) => (
+              <>
+                {" "}
+                {m.boolean == true && m.id === record.id && (
+                  <Badge
+                    className="site-badge-count-109"
+                    count={show ? "Active" : 0}
+                    style={{ backgroundColor: "#52c41a" }}
+                  />
+                )}{" "}
+                {m.boolean == false && m.id === record.id && (
+                  <Badge
+                    className="site-badge-count-109"
+                    count={show ? "Blocked" : 0}
+                    style={{ backgroundColor: "red" }}
+                  />
+                )}
+              </>
+            ))
+          : 0,
     },
     {
       title: "Date",
@@ -190,22 +238,7 @@ const FirstTable = () => {
           </Popconfirm>
         ) : null,
     },
-    {
-      title: " ",
-      dataIndex: "operation",
-      align: "center",
-      width: 30,
-      render: (_, record) =>
-        dataSource.length >= 1 ? (
-          <Popconfirm
-            title="Sure to delete?"
-            onConfirm={() => handleDelete(record.id)}
-          >
-            <DeleteTwoTone />
-          </Popconfirm>
-        ) : null,
-    },
-  ];
+  ].filter((item) => !item.hidden);
   const columns = defaultColumns.map((col) => {
     if (!col.editable) {
       return col;
@@ -224,48 +257,18 @@ const FirstTable = () => {
   });
   return (
     <>
-      <StyledSpace>
-        <Button
-          onClick={handleAdd}
-          type="primary"
-          disabled={dataSource.length === 0}
-          shape="round"
-          ghost
-        >
-          Add a row
-        </Button>
-        <Button
-          onClick={() => {
-            setIsFetching(true);
+      <StyledSpace></StyledSpace>
+      <StyledCard title={titleofTable}>
+        <Table
+          components={components}
+          bordered={false}
+          dataSource={dataSource}
+          pagination={{
+            defaultPageSize: 5,
           }}
-          type="primary"
-          shape="round"
-          disabled={dataSource.length !== 0}
-        >
-          Fetch Data
-        </Button>
-      </StyledSpace>
-      <StyledCard
-        title={
-          dataSource.length === 0
-            ? "Click the fetch button to display data"
-            : "The given data is fetched from API"
-        }
-      >
-        {isFetching ? (
-          <Table
-            components={components}
-            bordered={false}
-            dataSource={dataSource}
-            pagination={{
-              defaultPageSize: 5,
-            }}
-            columns={columns}
-            loading={dataSource.length === 0 && <Spin />}
-          />
-        ) : (
-          ""
-        )}
+          columns={columns}
+          loading={dataSource.length === 0 && <Spin />}
+        />
       </StyledCard>
     </>
   );
