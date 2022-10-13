@@ -1,4 +1,5 @@
 import {
+  DollarOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   UploadOutlined,
@@ -9,7 +10,7 @@ import "antd/dist/antd.min.css"; // or 'antd/dist/antd.less'
 import "../Layout/Layout.css";
 import { Cards, StyledSpace } from "./Main Content/Cards";
 
-import { Card, Layout, Menu, Row, Col, Typography } from "antd";
+import { Card, Layout, Menu, Row, Col, Typography, Button } from "antd";
 import React, { useState } from "react";
 import Grids from "./Main Content/Cards";
 import BarChart from "./Charts/Chart";
@@ -20,7 +21,7 @@ const style = {
   margin: "10px 0",
 };
 
-const Home = ({ dataSource }) => {
+const Home = ({ dataSource, setDataSource }) => {
   const [collapsed, setCollapsed] = useState(false);
   return (
     <Layout>
@@ -79,33 +80,75 @@ const Home = ({ dataSource }) => {
             backgroundColor: "#f8f8f8",
           }}
         >
-          <Grids></Grids>
+          <Grids />
 
           <Row gutter={[16, 20]}>
             <Col gutter={4} span={16}>
               <Card>
-                <BarChart />
+                <BarChart style={{ height: "450px" }} />
               </Card>
             </Col>
 
             <Col span={8}>
-              <Row vgutter={20} style={{ style }}>
-                <Col style={{ backgroundColor: "green" }}>
-                  <Card>
-                    <Typography>
-                      Enhance your Campaign for better outreach{" "}
-                    </Typography>
-                  </Card>
+              <Card style={{ display: "flex" }} className="cards">
+                <Col span={16}>
+                  <DollarOutlined
+                    style={{ fontSize: "30px", padding: "5px 0" }}
+                  />
+                  <Typography
+                    style={{ fontSize: "20px", marginBottom: "30px" }}
+                  >
+                    Enhance your <b>Campaign</b> for better outreach{" "}
+                  </Typography>
+                  <Button
+                    style={{ marginBottom: "10px" }}
+                    type="primary"
+                    shape="round"
+                  >
+                    Upgrade Account
+                  </Button>
                 </Col>
-              </Row>
-              <Row vgutter={20} style={{ style }}>
-                <Col gutter={16}>
-                  <Card>
-                    Hello Lorem ipsum dolor sit amet consectetur adipisicing
-                    elit. Quidem, natus.
-                  </Card>
+                <Col span={8} style={{ alignSelf: "center" }}>
+                  <img
+                    className="img"
+                    src="https://samply.react-v-light.pichforest.com/static/media/widget-img.cc77a9b7.png"
+                    width={80}
+                    height={50}
+                    style={{ display: "flex", flexDirection: "center" }}
+                  />
                 </Col>
-              </Row>
+              </Card>
+              <Card
+                style={{ display: "flex", marginTop: "8px" }}
+                className="cards"
+              >
+                <Col span={16}>
+                  <DollarOutlined
+                    style={{ fontSize: "30px", padding: "5px 0" }}
+                  />
+                  <Typography
+                    style={{ fontSize: "20px", marginBottom: "30px" }}
+                  >
+                    Enhance your <b>Campaign</b> for better outreach{" "}
+                  </Typography>
+                  <Button
+                    style={{ marginBottom: "10px" }}
+                    type="primary"
+                    shape="round"
+                  >
+                    Upgrade Account
+                  </Button>
+                </Col>
+                <Col span={8} style={{ alignSelf: "center" }}>
+                  <img
+                    className="img"
+                    src="https://samply.react-v-light.pichforest.com/static/media/widget-img.cc77a9b7.png"
+                    width={80}
+                    height={50}
+                    style={{ display: "flex", flexDirection: "center" }}
+                  />
+                </Col>
+              </Card>
             </Col>
           </Row>
 
@@ -113,12 +156,14 @@ const Home = ({ dataSource }) => {
             <Col span={12}>
               <FirstTable
                 dataSource={dataSource}
+                setDataSource={setDataSource}
                 titleofTable={"Latest Transaction"}
               />
             </Col>
             <Col offset={1} span={11}>
               <FirstTable
                 dataSource={dataSource}
+                setDataSource={setDataSource}
                 titleofTable={"Latest Orders"}
               />
             </Col>
@@ -128,6 +173,7 @@ const Home = ({ dataSource }) => {
             <Col span={24}>
               <FirstTable
                 dataSource={dataSource}
+                setDataSource={setDataSource}
                 titleofTable={"Recent users"}
                 last_name={"last_name"}
               />

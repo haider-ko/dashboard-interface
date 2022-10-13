@@ -21,7 +21,16 @@
     
   }
 
+   .cards .ant-card-body{
+    display: flex;
+    overflow-y: hidden;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
   .ant-card-body{
     overflow-x: auto;
   }
+
+  
 
