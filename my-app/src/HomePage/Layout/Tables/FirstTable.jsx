@@ -116,13 +116,6 @@ const FirstTable = ({
   const [count, setCount] = useState(11);
   const [show, setShow] = useState(true);
 
-  //   //Api Fetching
-  //   useEffect(() => {
-  //     fetch("MOCK_DATA.json")
-  //       .then((response) => response.json())
-  //       .then((dataSource) => setDataSource(dataSource));
-  //   }, []);
-
   const handleDelete = (id) => {
     const newData = dataSource.filter((item) => item.id !== id);
     setDataSource(newData);

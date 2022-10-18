@@ -15,7 +15,7 @@ function App() {
 
   return (
     <>
-      <Home dataSource={dataSource} />
+      <Home dataSource={dataSource} setDataSource={setDataSource} />
     </>
   );
 }

@@ -9,33 +9,21 @@ const style = {
   padding: "8px 0",
 };
 
-export const Cards = styled(Card)`
-position: relative;
-display: flex;
-flex-direction: column;
-min-width: 0;
-
-background-color: #fff;
-background-clip: border-box;
-border: 1px solid #e9ebec;
-border-radius: 0.25rem;
-
-
-padding: 2px;
-margin: 0 10px;
-
-}
-`;
-
-export const StyledSpace = styled(Space)`
+export const StyledCard = styled(Card)`
   display: flex;
+  width: 100%;
+  margin-bottom: 10px;
 
-  padding: 10px;
-  gap: 2px;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid #e9ebec;
+  border-radius: 0.25rem;
+  padding: 2px;
 `;
 
-const InsideSpace = styled(Space)`
-  padding: 2px;
+const StyledSpace = styled(Space)`
+  display: flex;
+  justify-content: space-between;
 `;
 
 // const Button = styled.button`
@@ -47,117 +35,66 @@ const InsideSpace = styled(Space)`
 //   padding: 0.25em 1em;
 // `;
 
+const salesdata = [
+  {
+    id: 1,
+    title: "TOTAL REVENUE",
+    sales: "$58425",
+    percentage: "2.65%",
+    color: "#52c41a",
+  },
+  {
+    id: 2,
+    title: "TOTAL REFUNDS",
+    sales: "$2568",
+    percentage: "4.68%",
+    color: "#f56e50",
+  },
+  {
+    id: 3,
+    title: "ACTIVE USERS",
+    sales: "258410",
+    percentage: "14.33%",
+    color: "#52c41a",
+  },
+  {
+    id: 4,
+    title: "ALL TIME ORDERS",
+    sales: "9582",
+    percentage: "0.55%",
+    color: "#f5bd58",
+  },
+];
+
 const Grids = () => {
   const [show, setShow] = useState(true);
   return (
     <>
-      <StyledSpace>
-        <Cards>
-          <InsideSpace>
-            <Row gutter={20}>
-              <Col className="gutter-row" span={16}>
-                <Typography style={{ fontWeight: 500, fontSize: "16px" }}>
-                  TOTAL REVENUE
-                </Typography>
-              </Col>
-              <Col className="gutter-row" span={8}>
-                <div style={style}>
+      <Row gutter={16}>
+        {salesdata.map((data) => {
+          return (
+            <Col span={6}>
+              <StyledCard>
+                <StyledSpace>
+                  <Typography style={{ fontWeight: 500, fontSize: "16px" }}>
+                    {data.title}
+                  </Typography>
+
                   <WalletOutlined style={{ fontSize: "30px" }} />
-                </div>
-              </Col>
-              <Col className="gutter-row" span={14}>
+                </StyledSpace>
                 <Typography style={{ fontWeight: 500, fontSize: "24px" }}>
-                  $58425
+                  {data.sales}
                 </Typography>
                 <Badge
                   className="site-badge-count-109"
-                  count={show ? "2.65 %" : 0}
-                  style={{ backgroundColor: "#52c41a" }}
+                  count={show ? data.percentage : 0}
+                  style={{ backgroundColor: data.color }}
                 />
-              </Col>
-              <Col className="gutter-row" span={14}></Col>
-            </Row>
-          </InsideSpace>
-        </Cards>
-        <Cards>
-          <InsideSpace>
-            <Row gutter={20}>
-              <Col className="gutter-row" span={16}>
-                <Typography style={{ fontWeight: 500, fontSize: "16px" }}>
-                  TOTAL REFUNDS
-                </Typography>
-              </Col>
-              <Col className="gutter-row" span={8}>
-                <div style={style}>
-                  <WalletOutlined style={{ fontSize: "30px" }} />
-                </div>
-              </Col>
-              <Col className="gutter-row" span={14}>
-                <Typography style={{ fontWeight: 500, fontSize: "24px" }}>
-                  $58425
-                </Typography>
-                <Badge
-                  className="site-badge-count-109"
-                  count={show ? "2.65 %" : 0}
-                  style={{ backgroundColor: "#52c41a" }}
-                />
-              </Col>
-            </Row>
-          </InsideSpace>
-        </Cards>
-        <Cards>
-          <InsideSpace>
-            <Row gutter={20}>
-              <Col className="gutter-row" span={16}>
-                <Typography style={{ fontWeight: 500, fontSize: "16px" }}>
-                  ACTIVE USERS
-                </Typography>
-              </Col>
-              <Col className="gutter-row" span={8}>
-                <div style={style}>
-                  <WalletOutlined style={{ fontSize: "30px" }} />
-                </div>
-              </Col>
-              <Col className="gutter-row" span={14}>
-                <Typography style={{ fontWeight: 500, fontSize: "24px" }}>
-                  $58425
-                </Typography>
-                <Badge
-                  className="site-badge-count-109"
-                  count={show ? "2.65 %" : 0}
-                  style={{ backgroundColor: "#52c41a" }}
-                />
-              </Col>
-            </Row>
-          </InsideSpace>
-        </Cards>
-        <Cards>
-          <InsideSpace>
-            <Row gutter={20}>
-              <Col className="gutter-row" span={16}>
-                <Typography style={{ fontWeight: 500, fontSize: "16px" }}>
-                  ALL TIME ORDERS
-                </Typography>
-              </Col>
-              <Col className="gutter-row" span={8}>
-                <div style={style}>
-                  <WalletOutlined style={{ fontSize: "30px" }} />
-                </div>
-              </Col>
-              <Col className="gutter-row" span={14}>
-                <Typography style={{ fontWeight: 500, fontSize: "24px" }}>
-                  $58425
-                </Typography>
-                <Badge
-                  className="site-badge-count-109"
-                  count={show ? "2.65 %" : 0}
-                  style={{ backgroundColor: "#52c41a" }}
-                />
-              </Col>
-            </Row>
-          </InsideSpace>
-        </Cards>
-      </StyledSpace>
+              </StyledCard>
+            </Col>
+          );
+        })}
+      </Row>
     </>
   );
 };
