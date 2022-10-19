@@ -6,6 +6,8 @@ import BarChart from "./HomePage/Layout/Charts/Chart";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getUsersFetch } from "./store/sagas/slice/usersSlice";
+import FakeTable from "./HomePage/Layout/Tables/FakeTable";
+import FirstTable from "./HomePage/Layout/Tables/FirstTable";
 
 function App() {
   // const [dataSource, setDataSource] = useState([]);
@@ -15,15 +17,15 @@ function App() {
   //     .then((dataSource) => setDataSource(dataSource));
   // }, []);
 
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getUsersFetch());
-  }, [dispatch]);
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(getUsersFetch());
+  // }, [dispatch]);
 
-  const users = useSelector((state) => state.users.users);
+  // const users = useSelector((state) => state.users.users);
 
-  console.log(users);
-  return <>{users && <Home users={users} />}</>;
+  // return <>{users && <Home users={users} />}</>;
+  return <Home />;
 }
 
 export default App;

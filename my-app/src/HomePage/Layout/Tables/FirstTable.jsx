@@ -13,6 +13,12 @@ import {
 } from "antd";
 import { DeleteTwoTone } from "@ant-design/icons";
 import React, { useContext, useEffect, useRef, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
+import {
+  deleteUser,
+  getUsersFetch,
+} from "../../../store/sagas/slice/usersSlice";
 import styled from "styled-components";
 
 const StyledCard = styled(Card)`
@@ -50,6 +56,8 @@ const EditableCell = ({
   const [editing, setEditing] = useState(false);
   const inputRef = useRef(null);
   const form = useContext(EditableContext);
+  const users = useSelector((state) => state.users.users);
+
   useEffect(() => {
     if (editing) {
       inputRef.current.focus();
@@ -116,9 +124,15 @@ const FirstTable = ({
   const [count, setCount] = useState(11);
   const [show, setShow] = useState(true);
 
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUsersFetch());
+  }, [dispatch]);
+
+  const users = useSelector((state) => state.users.users);
+
   const handleDelete = (id) => {
-    const newData = dataSource.filter((item) => item.id !== id);
-    setDataSource(newData);
+    dispatch(deleteUser(id));
   };
   const handleAdd = () => {
     const newData = {
@@ -158,8 +172,8 @@ const FirstTable = ({
       dataIndex: "image",
 
       render: (_, record, dataIndex) =>
-        dataSource.length >= 1
-          ? dataSource.map((m) => (
+        users.length >= 1
+          ? users.map((m) => (
               <> {m.id === record.id && <Avatar src={m.image} width={200} />}</>
             ))
           : 0,
@@ -188,8 +202,8 @@ const FirstTable = ({
       align: "center",
 
       render: (_, record, dataIndex) =>
-        dataSource.length
-          ? dataSource.map((m) => (
+        users.length
+          ? users.map((m) => (
               <>
                 {" "}
                 {m.boolean == true && m.id === record.id && (
@@ -222,7 +236,7 @@ const FirstTable = ({
       align: "center",
       width: 30,
       render: (_, record) =>
-        dataSource.length >= 1 ? (
+        users.length >= 1 ? (
           <Popconfirm
             title="Sure to delete?"
             onConfirm={() => handleDelete(record.id)}
@@ -248,6 +262,7 @@ const FirstTable = ({
       }),
     };
   });
+  console.log(users);
   return (
     <>
       <StyledSpace></StyledSpace>
@@ -255,12 +270,11 @@ const FirstTable = ({
         <Table
           components={components}
           bordered={false}
-          dataSource={dataSource}
+          dataSource={users}
           pagination={{
             defaultPageSize: 5,
           }}
           columns={columns}
-          loading={dataSource.length === 0 && <Spin />}
         />
       </StyledCard>
     </>

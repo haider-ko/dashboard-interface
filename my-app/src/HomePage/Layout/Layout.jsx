@@ -21,7 +21,7 @@ const style = {
   margin: "10px 0",
 };
 
-const Home = ({ dataSource, setDataSource }) => {
+const Home = ({ users }) => {
   const [collapsed, setCollapsed] = useState(false);
   return (
     <Layout>
@@ -83,9 +83,9 @@ const Home = ({ dataSource, setDataSource }) => {
           <Grids />
 
           <Row gutter={[16, 20]}>
-            <Col gutter={4} span={16}>
+            <Col span={16}>
               <Card>
-                <BarChart style={{ height: "450px" }} />
+                <BarChart style={{ height: "100%" }} />
               </Card>
             </Col>
 
@@ -154,26 +154,16 @@ const Home = ({ dataSource, setDataSource }) => {
 
           <Row style={{ margin: "20px 0" }}>
             <Col span={12}>
-              <FirstTable
-                dataSource={dataSource}
-                setDataSource={setDataSource}
-                titleofTable={"Latest Transaction"}
-              />
+              <FirstTable titleofTable={"Latest Transaction"} />
             </Col>
             <Col offset={1} span={11}>
-              <FirstTable
-                dataSource={dataSource}
-                setDataSource={setDataSource}
-                titleofTable={"Latest Orders"}
-              />
+              <FirstTable titleofTable={"Latest Orders"} />
             </Col>
           </Row>
 
           <Row style={{ margin: "20px 0" }}>
             <Col span={24}>
               <FirstTable
-                dataSource={dataSource}
-                setDataSource={setDataSource}
                 titleofTable={"Recent users"}
                 last_name={"last_name"}
               />
