@@ -125,12 +125,12 @@ const FirstTable = ({
   const [show, setShow] = useState(true);
 
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getUsersFetch());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getUsersFetch());
+  // }, [dispatch]);
 
   const users = useSelector((state) => state.users.users);
-
+  console.log("3");
   const handleDelete = (id) => {
     dispatch(deleteUser(id));
   };

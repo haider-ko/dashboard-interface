@@ -1,76 +1,78 @@
 import {
+  DesktopOutlined,
   DollarOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  UploadOutlined,
+  FileOutlined,
+  PieChartOutlined,
+  TeamOutlined,
   UserOutlined,
-  VideoCameraOutlined,
 } from "@ant-design/icons";
-import "antd/dist/antd.min.css"; // or 'antd/dist/antd.less'
-import "../Layout/Layout.css";
-import { Cards, StyledSpace } from "./Main Content/Cards";
-
-import { Card, Layout, Menu, Row, Col, Typography, Button } from "antd";
-import React, { useState } from "react";
+import { Breadcrumb } from "antd";
+import { Card, Layout, Menu, Row, Col, Typography, Button, Affix } from "antd";
 import Grids from "./Main Content/Cards";
+// import "antd/dist/antd.min.css"; // or 'antd/dist/antd.less'
+import "../Layout/layout-sider.css";
 import BarChart from "./Charts/Chart";
 import FirstTable from "./Tables/FirstTable";
-const { Header, Sider, Content } = Layout;
-const style = {
-  background: "#0092ff",
-  margin: "10px 0",
-};
-
-const Home = ({ users }) => {
+import React, { useState } from "react";
+const { Header, Content, Footer, Sider } = Layout;
+function getItem(label, key, icon, children) {
+  return {
+    key,
+    icon,
+    children,
+    label,
+  };
+}
+const items = [
+  getItem("Option 1", "1", <PieChartOutlined />),
+  getItem("Option 2", "2", <DesktopOutlined />),
+  getItem("User", "sub1", <UserOutlined />, [
+    getItem("Tom", "3"),
+    getItem("Bill", "4"),
+    getItem("Alex", "5"),
+  ]),
+  getItem("Team", "sub2", <TeamOutlined />, [
+    getItem("Team 1", "6"),
+    getItem("Team 2", "8"),
+  ]),
+  getItem("Files", "9", <FileOutlined />),
+];
+const Homepage = () => {
   const [collapsed, setCollapsed] = useState(false);
   return (
-    <Layout>
-      <Sider
-        trigger={null}
-        collapsible
-        collapsed={collapsed}
-        style={{ height: "100vh", backgroundColor: "#121e2d" }}
-      >
-        <div className="logo" />
-        <Menu
-          style={{ backgroundColor: "#121e2d", color: "#8fa6bf" }}
-          mode="inline"
-          defaultSelectedKeys={["1"]}
-          items={[
-            {
-              key: "1",
-              icon: <UserOutlined />,
-              label: "nav 1",
-            },
-            {
-              key: "2",
-              icon: <VideoCameraOutlined />,
-              label: "nav 2",
-            },
-            {
-              key: "3",
-              icon: <UploadOutlined />,
-              label: "nav 3",
-            },
-          ]}
-        />
-      </Sider>
-
-      <Layout className="site-layout">
-        <Header
-          className="site-layout-background"
-          style={{
-            padding: 0,
-          }}
+    <Layout
+      style={{
+        minHeight: "100vh",
+      }}
+    >
+      <Header
+        className="site-layout-background"
+        style={{
+          padding: 0,
+          backgroundColor: "#001529",
+          width: "100vw",
+          position: "fixed",
+          zIndex: "9",
+          marginBottom: "200px",
+          height: "48px",
+        }}
+      />
+      <Affix offsetTop={64} style={{ backgroundColor: "#001529" }}>
+        <Sider
+          collapsible
+          collapsed={collapsed}
+          onCollapse={(value) => setCollapsed(value)}
         >
-          {React.createElement(
-            collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
-            {
-              className: "trigger",
-              onClick: () => setCollapsed(!collapsed),
-            }
-          )}
-        </Header>
+          {/* <div className="logo" /> */}
+          <Menu
+            theme="dark"
+            defaultSelectedKeys={["1"]}
+            mode="inline"
+            items={items}
+          />
+        </Sider>
+      </Affix>
+      <Layout className="site-layout">
         <Content
           className="site-layout-background"
           style={{
@@ -170,9 +172,15 @@ const Home = ({ users }) => {
             </Col>
           </Row>
         </Content>
+        <Footer
+          style={{
+            textAlign: "center",
+          }}
+        >
+          Ant Design ©2018 Created by Ant UED
+        </Footer>
       </Layout>
     </Layout>
   );
 };
-
-export default Home;
+export default Homepage;

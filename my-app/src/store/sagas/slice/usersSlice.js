@@ -14,6 +14,7 @@ export const usersSlice = createSlice({
 
     getUsersSuccess: (state, action) => {
       state.users = action.payload;
+      console.log("1");
       state.isLoading = false;
     },
 

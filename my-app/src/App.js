@@ -2,12 +2,12 @@ import logo from "./logo.svg";
 import "./App.css";
 import Home from "./HomePage/Layout/Layout";
 import Directory from "./HomePage/Layout/Main Content/Directory/Directory";
-import BarChart from "./HomePage/Layout/Charts/Chart";
+
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getUsersFetch } from "./store/sagas/slice/usersSlice";
-import FakeTable from "./HomePage/Layout/Tables/FakeTable";
-import FirstTable from "./HomePage/Layout/Tables/FirstTable";
+
+import Homepage from "./HomePage/Layout/Layout-sider";
 
 function App() {
   // const [dataSource, setDataSource] = useState([]);
@@ -17,15 +17,15 @@ function App() {
   //     .then((dataSource) => setDataSource(dataSource));
   // }, []);
 
-  // const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(getUsersFetch());
-  // }, [dispatch]);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUsersFetch());
+  }, [dispatch]);
 
   // const users = useSelector((state) => state.users.users);
 
   // return <>{users && <Home users={users} />}</>;
-  return <Home />;
+  return <Homepage />;
 }
 
 export default App;
